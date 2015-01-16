@@ -2,6 +2,8 @@ package com.zms.getdeviceinfo;
 
 import android.app.ActivityManager;
 import android.content.Context;
+import android.hardware.Sensor;
+import android.hardware.SensorManager;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Build;
@@ -17,6 +19,7 @@ import android.widget.TextView;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Locale;
 import java.util.TimeZone;
 
 
@@ -29,7 +32,7 @@ public class Main extends ActionBarActivity {
         setContentView(R.layout.main);
         tvInfo = (TextView) findViewById(R.id.tvInfo);
         tvInfo.setText(getBuildInfo(0) + getDisplayInfo(0) + getTelephonyState(0) + getTimeZoneInfo()
-                + getHardwareInfo(0));
+                + getHardwareInfo(0) + getSensorInfo());
     }
 
     /**
@@ -172,7 +175,157 @@ public class Main extends ActionBarActivity {
 
     private String getTimeZoneInfo() {
         TimeZone timeZone = TimeZone.getDefault();
-        return "TimeZone:" + timeZone.toString() + "\n";
+        Locale locale = getResources().getConfiguration().locale;
+        String language = locale.getLanguage();
+        return "TimeZone:" + timeZone.toString() + "\n" + "Language:" + language + "\n";
+    }
+
+    private String getSensorInfo() {
+        String checkResult = "Sensor:\n";
+        SensorManager mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+
+        // ACCELEROMETER
+        if (mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER) != null) {
+            checkResult = checkResult + "加速传感器: YES\n";
+        } else {
+            checkResult = checkResult + "加速传感器: NO\n";
+        }
+
+        // AMBIENT_TEMPERATURE
+        if (mSensorManager.getDefaultSensor(Sensor.TYPE_AMBIENT_TEMPERATURE) != null) {
+            checkResult = checkResult + "温度计: YES\n";
+        } else {
+            checkResult = checkResult + "温度计: NO\n";
+        }
+
+        // GAME_ROTATION_VECTOR
+        if (mSensorManager.getDefaultSensor(Sensor.TYPE_GAME_ROTATION_VECTOR) != null) {
+            checkResult = checkResult + "游戏旋转矢量传感器: YES\n";
+        } else {
+            checkResult = checkResult + "游戏旋转矢量传感器: NO\n";
+        }
+
+        // GEOMAGNETIC_ROTATION_VECTOR
+        if (mSensorManager
+                .getDefaultSensor(Sensor.TYPE_GEOMAGNETIC_ROTATION_VECTOR) != null) {
+            checkResult = checkResult + "地磁旋转矢量传感器: YES\n";
+        } else {
+            checkResult = checkResult + "地磁旋转矢量传感器: NO\n";
+        }
+
+        // GRAVITY
+        if (mSensorManager.getDefaultSensor(Sensor.TYPE_GRAVITY) != null) {
+            checkResult = checkResult + "重力传感器: YES\n";
+        } else {
+            checkResult = checkResult + "重力传感器: NO\n";
+        }
+
+        // GYROSCOPE
+        if (mSensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE) != null) {
+            checkResult = checkResult + "陀螺仪: YES\n";
+        } else {
+            checkResult = checkResult + "陀螺仪: NO\n";
+        }
+
+        // GYROSCOPE_UNCALIBRATED
+        if (mSensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE_UNCALIBRATED) != null) {
+            checkResult = checkResult + "未校准陀螺仪: YES\n";
+        } else {
+            checkResult = checkResult + "未校准陀螺仪: NO\n";
+        }
+
+        // LIGHT
+        if (mSensorManager.getDefaultSensor(Sensor.TYPE_LIGHT) != null) {
+            checkResult = checkResult + "光线传感器: YES\n";
+        } else {
+            checkResult = checkResult + "光线传感器: NO\n";
+        }
+
+        // LINEAR_ACCELERATION
+        if (mSensorManager.getDefaultSensor(Sensor.TYPE_LINEAR_ACCELERATION) != null) {
+            checkResult = checkResult + "加速度传感器: YES\n";
+        } else {
+            checkResult = checkResult + "加速度传感器: NO\n";
+        }
+
+        // MAGNETIC_FIELD
+        if (mSensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD) != null) {
+            checkResult = checkResult + "磁场传感器: YES\n";
+        } else {
+            checkResult = checkResult + "磁场传感器: NO\n";
+        }
+
+        // MAGNETIC_FIELD_UNCALIBRATED
+        if (mSensorManager
+                .getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD_UNCALIBRATED) != null) {
+            checkResult = checkResult + "未校准磁场传感器: YES\n";
+        } else {
+            checkResult = checkResult + "未校准磁场传感器: NO\n";
+        }
+
+        // ORIENTATION
+        if (mSensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION) != null) {
+            checkResult = checkResult + "方向传感器: YES\n";
+        } else {
+            checkResult = checkResult + "方向传感器: NO\n";
+        }
+
+        // PRESSURE
+        if (mSensorManager.getDefaultSensor(Sensor.TYPE_PRESSURE) != null) {
+            checkResult = checkResult + "压力传感器: YES\n";
+        } else {
+            checkResult = checkResult + "压力传感器: NO\n";
+        }
+
+        // PROXIMITY
+        if (mSensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY) != null) {
+            checkResult = checkResult + "距离传感器: YES\n";
+        } else {
+            checkResult = checkResult + "距离传感器: NO\n";
+        }
+
+        // RELATIVE_HUMIDITY
+        if (mSensorManager.getDefaultSensor(Sensor.TYPE_RELATIVE_HUMIDITY) != null) {
+            checkResult = checkResult + "相对湿度传感器: YES\n";
+        } else {
+            checkResult = checkResult + "相对湿度传感器: NO\n";
+        }
+
+        // ROTATION_VECTOR
+        if (mSensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR) != null) {
+            checkResult = checkResult + "旋转矢量传感器: YES\n";
+        } else {
+            checkResult = checkResult + "旋转矢量传感器: NO\n";
+        }
+
+        // SIGNIFICANT_MOTION
+        if (mSensorManager.getDefaultSensor(Sensor.TYPE_SIGNIFICANT_MOTION) != null) {
+            checkResult = checkResult + "显著运动传感器: YES\n";
+        } else {
+            checkResult = checkResult + "显著运动传感器: NO\n";
+        }
+
+        // STEP_COUNTER
+        if (mSensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER) != null) {
+            checkResult = checkResult + "计步传感器: YES\n";
+        } else {
+            checkResult = checkResult + "计步传感器: NO\n";
+        }
+
+        // STEP_DETECTOR
+        if (mSensorManager.getDefaultSensor(Sensor.TYPE_STEP_DETECTOR) != null) {
+            checkResult = checkResult + "步伐探测器: YES\n";
+        } else {
+            checkResult = checkResult + "步伐探测器: NO\n";
+        }
+
+        // TEMPERATURE
+        if (mSensorManager.getDefaultSensor(Sensor.TYPE_TEMPERATURE) != null) {
+            checkResult = checkResult + "温度传感器: YES\n";
+        } else {
+            checkResult = checkResult + "温度传感器: NO\n";
+        }
+        return checkResult;
     }
 
     @Override
